@@ -6,12 +6,13 @@ public class Map {
      * @param parameters
      * @return String[][]
      */
-    public String[][] createMap(int[] parameters){
-        String[][] pole = new String[12][12];
+    public int[][] createMap(int[] parameters){
+        int[][] pole = new int[12][12];
         for(int i = 0; i < 12; i++){
             String island = decToBinary(parameters[i]);
             for(int j = 0; j < 12; j++){
-                pole[i][j] = String.valueOf(island.charAt(j));
+                pole[i][j] = Integer.parseInt(String.valueOf(island.charAt(j)));
+
             }
         }
         return pole;
@@ -42,7 +43,7 @@ public class Map {
      * Print a map
      * @param matrix
      */
-    public void printMap (String matrix[][]){
+    public void printMap (int matrix[][]){
         for(int i = 0; i < matrix.length; i++){
             for(int j = 0; j < matrix[0].length; j++){
                 System.out.print(matrix[i][j] + "\t");
@@ -50,4 +51,6 @@ public class Map {
             System.out.println();
         }
     }
+
+
 }
