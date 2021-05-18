@@ -1,17 +1,19 @@
 package sk.kosickaakademia.spivak.game;
 
+import java.util.Scanner;
+
 public class Map {
     /**
      * Create a map 0 - water; 1 - island
      * @param parameters
      * @return String[][]
      */
-    public int[][] createMap(int[] parameters){
-        int[][] pole = new int[12][12];
+    public String[][] createMap(int[] parameters){
+        String[][] pole = new String[12][12];
         for(int i = 0; i < 12; i++){
             String island = decToBinary(parameters[i]);
             for(int j = 0; j < 12; j++){
-                pole[i][j] = Integer.parseInt(String.valueOf(island.charAt(j)));
+                pole[i][j] = String.valueOf(island.charAt(j));
 
             }
         }
@@ -31,7 +33,7 @@ public class Map {
             oct = hexDigits[rem] + oct;
             dec = dec / 2;
         }
-        if(oct.length()<9){
+        if(oct.length()<13){
             for(int i = oct.length(); i < 12; i++) {
                 oct = "0" + oct;
             }
@@ -43,7 +45,7 @@ public class Map {
      * Print a map
      * @param matrix
      */
-    public void printMap (int matrix[][]){
+    public void printMap (String matrix[][]){
         for(int i = 0; i < matrix.length; i++){
             for(int j = 0; j < matrix[0].length; j++){
                 System.out.print(matrix[i][j] + "\t");
@@ -51,6 +53,66 @@ public class Map {
             System.out.println();
         }
     }
+
+    /**
+     * The position of the boat on the map (symbol L)
+     * @param map
+     */
+    public void boat (String[][] map){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the position of the boat (row and column):");
+        int row = scanner.nextInt();
+        int column = scanner.nextInt();
+        while(row > 12 || row < 0 || column > 12 || column < 0){
+            System.out.println("Incorrect input data");
+            row = scanner.nextInt();
+            column = scanner.nextInt();
+        }
+        System.out.println(row);
+        System.out.println(column);
+        while(map[row-1][column-1].equals("1")) {
+            System.out.println("The island is located at this position, enter other data");
+            row = scanner.nextInt();
+            column = scanner.nextInt();
+            while(row > 12 || row < 0 || column > 12 || column < 0){
+                System.out.println("The value must be between 1 and 12. Try again:");
+                row = scanner.nextInt();
+                column = scanner.nextInt();
+            }
+        }
+        map[row - 1][column - 1] = "L";
+    }
+
+    /**
+     * The position of the treasure on the map (symbol P)
+     * @param map
+     */
+    public void treasure (String[][] map){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the position of the treasure (row and column):");
+        int row = scanner.nextInt();
+        int column = scanner.nextInt();
+        while(row > 12 || row < 0 || column > 12 || column < 0){
+            System.out.println("The value must be between 1 and 12. Try again:");
+            row = scanner.nextInt();
+            column = scanner.nextInt();
+        }
+        System.out.println(row);
+        System.out.println(column);
+        while(map[row-1][column-1].equals("1")) {
+            System.out.println("The island is located at this position, enter other data");
+            row = scanner.nextInt();
+            column = scanner.nextInt();
+            while(row > 12 || row < 0 || column > 12 || column < 0){
+                System.out.println("Incorrect input data");
+                row = scanner.nextInt();
+                column = scanner.nextInt();
+            }
+        }
+        map[row - 1][column - 1] = "P";
+    }
+
+
 
 
 }
